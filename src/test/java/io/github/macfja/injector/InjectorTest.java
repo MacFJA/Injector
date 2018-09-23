@@ -58,6 +58,30 @@ public class InjectorTest {
     }
 
     @Test
+    public void testMethodAddMappingInstantiationNew() {
+        int startAt = TestISingleton.getCount();
+        Injector simple = new Injector("io.github");
+        simple.addMapping(TestISingleton.class, InjectionUnit.Instantiation.NewInstance);
+        Assert.assertEquals(startAt, TestISingleton.getCount());
+        simple.get(TestISingleton.class);
+        Assert.assertEquals(startAt + 1, TestISingleton.getCount());
+        simple.get(TestISingleton.class);
+        Assert.assertEquals(startAt + 2, TestISingleton.getCount());
+    }
+
+    @Test
+    public void testMethodAddMappingInstantiationSingleton() {
+        int startAt = TestISingleton.getCount();
+        Injector simple = new Injector("io.github");
+        simple.addMapping(TestISingleton.class, InjectionUnit.Instantiation.Singleton);
+        Assert.assertEquals(startAt, TestISingleton.getCount());
+        simple.get(TestISingleton.class);
+        Assert.assertEquals(startAt + 1, TestISingleton.getCount());
+        simple.get(TestISingleton.class);
+        Assert.assertEquals(startAt + 1, TestISingleton.getCount());
+    }
+
+    @Test
     public void testMethodAddWorkingPackage() {
         Injector injector = new Injector("io.github");
         Assert.assertFalse(injector.isInjectable(InjectionUnit.class));

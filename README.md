@@ -93,7 +93,7 @@ Add the depency in your Maven project:
         <dependency>
             <groupId>io.github.macfja</groupId>
             <artifactId>injector</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
         <!-- ... -->
     </dependencies>
@@ -139,7 +139,21 @@ injector.addMapping(
     )
 );
 // ... later
-injector.get(mypackage.MyClass.class); // return the instance created in addMapping method
+injector.get(mypackage.MyClass.class); // create a new instance (first call)
+// ... later
+injector.get(mypackage.MyClass.class); // still the same instance
+```
+
+or
+
+```java
+io.github.macfja.injector.Injector injector = new io.github.macfja.injector.Injector("mypackage");
+injector.addMapping(
+    mypackage.MyClass.class,
+    io.github.macfja.injector.InjectionUnit.Instantiation.Singleton
+);
+// ... later
+injector.get(mypackage.MyClass.class); // create a new instance (first call)
 // ... later
 injector.get(mypackage.MyClass.class); // still the same instance
 ```

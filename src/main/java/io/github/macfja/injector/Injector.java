@@ -59,6 +59,16 @@ public class Injector implements Cloneable {
      * Add an injection rule of a class
      *
      * @param forClass  The class to inject
+     * @param instantiationType The Type of instantiation
+     */
+    public void addMapping(Class forClass, InjectionUnit.Instantiation instantiationType) {
+        mapping.put(forClass, new InjectionUnit(forClass, instantiationType));
+    }
+
+    /**
+     * Add an injection rule of a class
+     *
+     * @param forClass  The class to inject
      * @param injection The injection rule
      */
     public void addMapping(Class forClass, InjectionUnit injection) {
